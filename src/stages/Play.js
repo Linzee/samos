@@ -16,6 +16,8 @@ export default class StagePlay {
 
 		this.mpClient = undefined;
 		this.mpData = undefined;
+		this.mpRoomsClient = undefined;
+		this.mpRoomsData = undefined;
 
 		this.background = undefined;
 		this.world = undefined;
@@ -114,6 +116,7 @@ export default class StagePlay {
 		//
 
 		this.mpClient = this.multiplayer.initRoom(this.room);
+		this.mpRoomsClient = this.multiplayer.initRoomsRoom();
 
 		var initialiseGame = () => {
 			if(!this.mpData) {
@@ -180,6 +183,19 @@ export default class StagePlay {
 			guiAllCoins.text = this.mpData.coins.length;
 
 			if(this.mpData.coins.length === 0) {
+
+				var findMpRoomData = (roomId) => {
+					for(var room of this.mpRoomsData) {
+						if(room.id === roomId) {
+							return room;
+						}
+					}
+				};
+				var roomData = findMpRoomData(this.room);
+				roomData.state = 'end';
+				roomData.endTime = Date.now();
+				this.mpRoomsClient.sync();
+
 				this.stages.getStage("scoreboard").room = this.room;
 				this.stages.getStage("scoreboard").backStage = "rooms";
 				this.stages.changeStage("scoreboard");
@@ -201,9 +217,11 @@ export default class StagePlay {
 			}
 
 			//init
-			p.dplayer.x = (this.world.worldWidth / this.world.tilewidth) / 2;
-			p.dplayer.y = (this.world.worldHeight / this.world.tileheight) / 2;
-			p.dplayer.score = 0;
+			if(!p.dplayer.hasOwnProperty("x") || !p.dplayer.hasOwnProperty("y") || !p.dplayer.hasOwnProperty("score")) {
+				p.dplayer.x = (this.world.worldWidth / this.world.tilewidth) / 2;
+				p.dplayer.y = (this.world.worldHeight / this.world.tileheight) / 2;
+				p.dplayer.score = 0;
+			}
 
 			this.players.addChild(p);
 
@@ -315,6 +333,10 @@ export default class StagePlay {
 
 		this.mpClient.on('error', () => {
 			this.errorDialog.show("Connection problem!");
+		});
+
+		this.mpRoomsClient.on('connected', () => {
+			this.mpRoomsData = this.mpRoomsClient.getData();
 		});
 
 		this.g.stage.visible = false; //loading

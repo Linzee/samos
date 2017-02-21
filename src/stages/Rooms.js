@@ -12,6 +12,12 @@ export default class StageRooms {
 
 		this.mpClient = undefined;
 		this.mpData = undefined;
+
+		this.roomStates = {
+			'lobby': 0,
+			'play': 1,
+			'end': 2
+		}
 	}
 
 	load() {
@@ -25,7 +31,7 @@ export default class StageRooms {
 
 			let randomId = (Math.random().toString(36)+'00000000000000000').slice(2, 8);
 			
-			this.mpData.push({'id': randomId, 'name': createName});
+			this.mpData.push({'id': randomId, 'name': createName, 'state': 'lobby'});
 			this.mpClient.sync();
 
 			this.stages.getStage("lobby").room = randomId;
@@ -38,7 +44,7 @@ export default class StageRooms {
 
 		var synced = () => {
 
-			this.uiRooms.updateRooms(this.mpData.map(droom => {
+			var rooms = this.mpData.map(droom => {
 				return {
 					id: droom.id,
 					name: droom.name,
@@ -47,9 +53,20 @@ export default class StageRooms {
 						this.stages.changeStage("lobby");
 
 						ga('send', 'event', 'Room', 'join');
-					}
+					},
+					state: droom.state
 				}
-			}));
+			});
+
+			rooms.sort((a, b) => {
+				var u = this.roomStates[a.state] - this.roomStates[b.state];
+				if(u !== 0) {
+					return u;
+				}
+				return a.name.localeCompare(b.name);
+			});
+
+			this.uiRooms.updateRooms(rooms);
 		}
 
 		this.mpClient.on('connected', () => {

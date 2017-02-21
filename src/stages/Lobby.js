@@ -12,6 +12,8 @@ export default class StageLobby {
 
 		this.mpClient = undefined;
 		this.mpData = undefined;
+		this.mpRoomsClient = undefined;
+		this.mpRoomsData = undefined;
 
 		this.dplayer = undefined;
 		this.players = undefined;
@@ -50,10 +52,9 @@ export default class StageLobby {
 		//
 		// Players 
 		//
-		if(!this.mpClient) {
-			this.mpClient = this.multiplayer.initRoom(this.room);
-		}
-		
+		this.mpClient = this.multiplayer.initRoom(this.room);
+		this.mpRoomsClient = this.multiplayer.initRoomsRoom();
+
 		var playerTextures = this.g.filmstrip(require("../images/players.png"), 32, 32);
 
 		this.players = this.g.group();
@@ -172,6 +173,10 @@ export default class StageLobby {
 			this.errorDialog.show("Connection problem!");
 		});
 
+		this.mpRoomsClient.on('connected', () => {
+			this.mpRoomsData = this.mpRoomsClient.getData();
+		});
+
 		this.g.stage.visible = false; //loading
 		this.g.state = this.play.bind(this);
 	}
@@ -182,6 +187,18 @@ export default class StageLobby {
 		if(this.countdown !== undefined) {
 			if(this.countdown <= Date.now()) {
 				var playerImage = this.dplayer.image;
+
+				var findMpRoomData = (roomId) => {
+					for(var room of this.mpRoomsData) {
+						if(room.id === roomId) {
+							return room;
+						}
+					}
+				};
+				var roomData = findMpRoomData(this.room);
+				roomData.state = 'play';
+				roomData.startTime = Date.now();
+				this.mpRoomsClient.sync();
 
 				this.stages.getStage("play").room = this.room;
 				this.stages.changeStage("play");
@@ -194,6 +211,7 @@ export default class StageLobby {
 	unload() {
 
 		this.mpClient.removeAllListeners();
+		this.mpRoomsClient.removeAllListeners();
 
 		this.g.stage.removeChild(this.players);
 		this.g.stage.removeChild(this.gui);
