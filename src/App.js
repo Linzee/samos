@@ -17,7 +17,7 @@ export default class App {
 
 		this.settings = settings;
 		this.stages = new Stages();
-		this.multiplayer = new Multiplayer();
+		this.multiplayer = new Multiplayer(this.settings);
 		this.matmat = new MatMatData();
 		this.spriteSyncUtils = new SpriteSyncUtils();
 

@@ -3,8 +3,8 @@ import io from 'socket.io-client';
 
 export default class Multiplayer {
 
-	constructor() {
-		this.connection = io();
+	constructor(settings) {
+		this.connection = io(settings.app.mpServer);
 
 		this.roomsRoomClient = undefined;
 

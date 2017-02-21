@@ -8,7 +8,7 @@ export default class StageLobby {
 		this.settings = settings;
 		
 		this.room = undefined;
-		this.maxPlayers = 6;
+		this.maxPlayers = settings.app.maxPlayers;
 
 		this.mpClient = undefined;
 		this.mpData = undefined;
