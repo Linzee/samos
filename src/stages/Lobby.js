@@ -139,14 +139,19 @@ export default class StageLobby {
 
 		var addMe = () => {
 
-			if(this.players === undefined) {
-				return; //Synced when already left this state, ignore
-			}
-
 			if(this.mpData.players.length >= this.maxPlayers) {
 				this.stages.changeStage("rooms");
 				this.errorDialog.show("This room is already full");
 				return;
+			}
+
+			for(var i=0; i<this.mpData.players.length; i++) {
+				if(this.mpData.players[i].id === this.mpClient.socket.id) {
+					//player is already in game
+					this.stages.getStage("play").room = this.room;
+					this.stages.changeStage("play");
+					return;
+				}
 			}
 
 			this.dplayer = {

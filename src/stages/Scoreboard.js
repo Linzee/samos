@@ -35,22 +35,20 @@ export default class StageScoreboard {
 		this.mpClient = this.multiplayer.initRoom(this.room);
 		
 		var synced = () => {
-
-			if(this.players === undefined) {
-				return; //Synced when already left this state, ignore
-			}
 			
 			if(this.mpData.name) { //room name
 				this.roomName.text = this.mpData.name;
 			}
 
-			this.mpData.players.sort((a, b) => {
+			var dplayers = this.mpData.players;
+
+			dplayers.sort((a, b) => {
 				return b.score - a.score;
 			});
 
 			var nextX = 0;
 
-			this.spriteSyncUtils.recreate(this.players, this.mpData.players, (player, i) => {
+			this.spriteSyncUtils.recreate(this.players, dplayers, (player, i) => {
 				let p = new PIXI.Container();
 
 				var size = i < 3 ? (3-i)*2*32 : 32;
@@ -97,7 +95,7 @@ export default class StageScoreboard {
 			this.g.stage.visible = true; //loaded
 		});
 
-		this.mpClient.on('synced', synced);
+		this.mpClient.on('synced', synced); 
 
 		this.mpClient.on('error', () => {
 			this.errorDialog.show("Connection problem!");
@@ -134,6 +132,7 @@ export default class StageScoreboard {
 
 	unload() {
 		this.mpClient.removeAllListeners();
+		// this.mpRoomsClient.removeAllListeners();
 
 		this.g.stage.removeChild(this.players);
 		this.g.stage.removeChild(this.roomName);

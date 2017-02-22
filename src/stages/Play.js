@@ -182,6 +182,12 @@ export default class StagePlay {
 			}
 			guiAllCoins.text = this.mpData.coins.length;
 
+			//make sure your player is on top
+			this.players.children.sort((a,b) => {
+				return a === this.player;
+			});
+
+			// I won
 			if(this.mpData.coins.length === 0) {
 
 				var findMpRoomData = (roomId) => {
@@ -200,11 +206,6 @@ export default class StagePlay {
 				this.stages.getStage("scoreboard").backStage = "rooms";
 				this.stages.changeStage("scoreboard");
 			}
-
-			//make sure your player is on top
-			this.players.children.sort((a,b) => {
-				return a === this.player;
-			});
 		}
 
 		var addMe = () => {
@@ -352,6 +353,7 @@ export default class StagePlay {
 
 	unload() {
 		this.mpClient.removeAllListeners();
+		this.mpRoomsClient.removeAllListeners();
 
 		this.uiQuestionInput.hide();
 
