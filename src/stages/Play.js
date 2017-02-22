@@ -98,7 +98,7 @@ export default class StagePlay {
 		guiScoreboard.defaultCursor = "pointer";
 		guiScoreboard.on('click', () => {
 			this.stages.getStage("scoreboard").room = this.room;
-			this.stages.getStage("scoreboard").backStage = "play";
+			this.stages.getStage("scoreboard").source = "play";
 			this.stages.changeStage("scoreboard");
 		});
 		this.gui.addChild(guiScoreboard);
@@ -196,6 +196,7 @@ export default class StagePlay {
 							return room;
 						}
 					}
+					throw new Error("Room with id "+roomId+" doesnt exist");
 				};
 				var roomData = findMpRoomData(this.room);
 				roomData.state = 'end';
@@ -203,7 +204,7 @@ export default class StagePlay {
 				this.mpRoomsClient.sync();
 
 				this.stages.getStage("scoreboard").room = this.room;
-				this.stages.getStage("scoreboard").backStage = "rooms";
+				this.stages.getStage("scoreboard").source = "end";
 				this.stages.changeStage("scoreboard");
 			}
 		}
@@ -330,7 +331,9 @@ export default class StagePlay {
 			this.g.stage.visible = true; //loaded
 		});
 
-		this.mpClient.on('synced', synced);
+		if(this.source !== 'end') {
+			this.mpClient.on('synced', synced);
+		}
 
 		this.mpClient.on('error', () => {
 			this.errorDialog.show("Connection problem!");

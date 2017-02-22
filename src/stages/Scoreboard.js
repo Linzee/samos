@@ -9,7 +9,7 @@ export default class StageScoreboard {
 		this.settings = settings;
 
 		this.room = undefined;
-		this.backStage = "lobby";
+		this.source = "standalone";
 
 		this.mpClient = undefined;
 		this.mpData = undefined;
@@ -110,20 +110,38 @@ export default class StageScoreboard {
 		//
 		this.gui = this.g.group();
 
-		if(this.backStage) {
-			let guiBack = this.g.rectangle(100, 37, "#F1F1F1", "#000000", 1, -1, -1);
-			guiBack.interactive = true;
-			guiBack.buttonMode = true;
-			guiBack.defaultCursor = "pointer";
-			guiBack.on('click', () => {
-				this.stages.changeStage(this.backStage);
-			});
-			this.gui.addChild(guiBack);
+		
+		let guiBack = this.g.rectangle(100, 37, "#F1F1F1", "#000000", 1, -1, -1);
+		guiBack.interactive = true;
+		guiBack.buttonMode = true;
+		guiBack.defaultCursor = "pointer";
+		guiBack.on('click', () => {
+			this.stages.changeStage(this.source === 'play' ? 'play' : 'rooms');
+		});
+		this.gui.addChild(guiBack);
 
-			let guiBackText = new PIXI.Text('Back', {font : '16px Helvetica', fill : 0x000000});
-			guiBackText.x = 8;
-			guiBackText.y = 8;
-			guiBack.addChild(guiBackText);
+		let guiBackText = new PIXI.Text('Back', {font : '16px Helvetica', fill : 0x000000});
+		guiBackText.x = 8;
+		guiBackText.y = 8;
+		guiBack.addChild(guiBackText);
+
+
+		if(this.source === 'end') {
+			let guiNewGame = this.g.rectangle(300, 32, "#F1F1F1", "#000000", 1, this.settings.width / 2, this.settings.height - 48);
+			guiNewGame.anchor.x = 0.5;
+			guiNewGame.anchor.y = 0.5;
+			guiNewGame.interactive = true;
+			guiNewGame.buttonMode = true;
+			guiNewGame.defaultCursor = "pointer";
+			guiNewGame.on('click', () => {
+				this.stages.changeStage('rooms');
+			});
+			this.gui.addChild(guiNewGame);
+
+			let guiNewGameText = new PIXI.Text('New game', {font : '21px Helvetica', fill : 0x000000});
+			guiNewGameText.anchor.x = 0.5;
+			guiNewGameText.anchor.y = 0.5;
+			guiNewGame.addChild(guiNewGameText);
 		}
 
 		this.g.stage.visible = false; //loading
