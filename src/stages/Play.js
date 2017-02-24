@@ -87,7 +87,7 @@ export default class StagePlay {
 		});
 		this.gui.addChild(guiBack);
 
-		let guiBackText = new PIXI.Text('Back', {font : '16px Helvetica', fill : 0x000000});
+		let guiBackText = new PIXI.Text('Naspäť', {font : '16px Helvetica', fill : 0x000000});
 		guiBackText.x = 8;
 		guiBackText.y = 8;
 		guiBack.addChild(guiBackText);
@@ -103,7 +103,7 @@ export default class StagePlay {
 		});
 		this.gui.addChild(guiScoreboard);
 
-		let guiScoreboardText = new PIXI.Text('Scoreboard', {font : '16px Helvetica', fill : 0x000000});
+		let guiScoreboardText = new PIXI.Text('Rebríček', {font : '16px Helvetica', fill : 0x000000});
 		guiScoreboardText.x = 100 - 8;
 		guiScoreboardText.y = 8;
 		guiScoreboardText.anchor.x = 1.0;
@@ -336,7 +336,7 @@ export default class StagePlay {
 		}
 
 		this.mpClient.on('error', () => {
-			this.errorDialog.show("Connection problem!");
+			this.errorDialog.show("Problém s pripojením!");
 		});
 
 		this.mpRoomsClient.on('connected', () => {

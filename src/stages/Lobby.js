@@ -36,7 +36,7 @@ export default class StageLobby {
 		//
 		this.gui = this.g.group();
 
-		let guiPlayers = new PIXI.Text('Hraci: ', {font : '21px Helvetica', fill : 0x000000});
+		let guiPlayers = new PIXI.Text('Hráči: ', {font : '21px Helvetica', fill : 0x000000});
 		guiPlayers.x = this.settings.width / 2;
 		guiPlayers.y = 8;
 		guiPlayers.anchor.x = 0.5;
@@ -126,7 +126,7 @@ export default class StageLobby {
 				}
 			}
 
-			guiPlayers.text = "Hraci: "+this.mpData.players.length+" / "+this.maxPlayers;
+			guiPlayers.text = "Hráči: "+this.mpData.players.length+" / "+this.maxPlayers;
 
 			if(startCountdown) {
 				if(!this.countdown) {
@@ -141,7 +141,7 @@ export default class StageLobby {
 
 			if(this.mpData.players.length >= this.maxPlayers) {
 				this.stages.changeStage("rooms");
-				this.errorDialog.show("This room is already full");
+				this.errorDialog.show("Táto miestnosť je už plná");
 				return;
 			}
 
@@ -175,7 +175,7 @@ export default class StageLobby {
 		this.mpClient.on('synced', synced);
 
 		this.mpClient.on('error', () => {
-			this.errorDialog.show("Connection problem!");
+			this.errorDialog.show("Problém s pripojením!");
 		});
 
 		this.mpRoomsClient.on('connected', () => {
@@ -187,7 +187,7 @@ export default class StageLobby {
 	}
 
 	play() {
-		this.guiCountdown.text = Math.ceil((this.countdown - Date.now()) / 1000) || "";
+		this.guiCountdown.text = this.countdown ? "Hra začína o " + Math.ceil((this.countdown - Date.now()) / 1000) || "";
 
 		if(this.countdown !== undefined) {
 			if(this.countdown <= Date.now()) {

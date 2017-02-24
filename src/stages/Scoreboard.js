@@ -120,7 +120,7 @@ export default class StageScoreboard {
 		});
 		this.gui.addChild(guiBack);
 
-		let guiBackText = new PIXI.Text('Back', {font : '16px Helvetica', fill : 0x000000});
+		let guiBackText = new PIXI.Text('Naspäť', {font : '16px Helvetica', fill : 0x000000});
 		guiBackText.x = 8;
 		guiBackText.y = 8;
 		guiBack.addChild(guiBackText);
@@ -138,7 +138,7 @@ export default class StageScoreboard {
 			});
 			this.gui.addChild(guiNewGame);
 
-			let guiNewGameText = new PIXI.Text('New game', {font : '21px Helvetica', fill : 0x000000});
+			let guiNewGameText = new PIXI.Text('Nová hra', {font : '21px Helvetica', fill : 0x000000});
 			guiNewGameText.anchor.x = 0.5;
 			guiNewGameText.anchor.y = 0.5;
 			guiNewGame.addChild(guiNewGameText);
@@ -147,6 +147,10 @@ export default class StageScoreboard {
 		this.g.stage.visible = false; //loading
 		this.g.state = this.play;
 	}
+
+	play() {
+
+	}	
 
 	unload() {
 		this.mpClient.removeAllListeners();
@@ -162,9 +166,5 @@ export default class StageScoreboard {
 		this.players = undefined;
 		this.roomName = undefined;
 		this.gui = undefined;
-	}
-
-	play() {
-
 	}
 }
