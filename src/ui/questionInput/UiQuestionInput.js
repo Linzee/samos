@@ -15,8 +15,13 @@ export default class UiQuestionInput {
 			e.preventDefault();
 
 			var correct = checkAnswerCallback(questionAnswer.value);
-			questionAnswer.className = correct ? "correct" : "incorrect";
 			questionAnswer.value = "";
+			
+			questionAnswer.className = correct ? "correct" : "incorrect";
+			var newQuestionAnswer = questionAnswer.cloneNode(true);
+			questionAnswer.parentNode.replaceChild(newQuestionAnswer, questionAnswer);
+			questionAnswer = newQuestionAnswer;
+			questionAnswer.focus();
 		});
 
 		questionAnswer.focus();

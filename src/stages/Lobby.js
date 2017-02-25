@@ -187,7 +187,7 @@ export default class StageLobby {
 	}
 
 	play() {
-		this.guiCountdown.text = this.countdown ? "Hra začína o " + Math.ceil((this.countdown - Date.now()) / 1000) || "";
+		this.guiCountdown.text = this.countdown ? "Hra začína o " + Math.ceil((this.countdown - Date.now()) / 1000) : "";
 
 		if(this.countdown !== undefined) {
 			if(this.countdown <= Date.now()) {
