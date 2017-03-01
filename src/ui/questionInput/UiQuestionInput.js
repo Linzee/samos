@@ -1,9 +1,11 @@
 export default class UiQuestionInput {
 
-	constructor(g) {
-
-		this.ui = document.querySelector("#ui");
-		g.scaleToWindow(this.ui);
+	constructor() {
+		var globalUi = document.querySelector("#ui");
+		
+		this.ui = document.createElement('div');
+		this.ui.className = 'ui-questionInput';
+		globalUi.appendChild(this.ui);
 	}
 
 	show(checkAnswerCallback) {

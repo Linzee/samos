@@ -14,6 +14,7 @@ $foundation-palette: (
  */
 @import "~foundation-sites/scss/foundation";
 @include foundation-global-styles;
+@include foundation-flex-classes;
 @include foundation-flex-grid;
 @include foundation-typography;
 @include foundation-forms;
@@ -81,6 +82,14 @@ canvas {
 
 				}
 			}
+		}
+	}
+
+	.ui-loading {
+		.overlay {
+			position: absolute;
+			top: 0; right: 0; bottom: 0; left: 0;
+			background-color: white;
 		}
 	}
 }

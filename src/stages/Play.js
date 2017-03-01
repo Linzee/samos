@@ -2,15 +2,16 @@ import UiQuestionInput from '../ui/questionInput/UiQuestionInput';
 
 export default class StagePlay {
 
-	constructor(g, multiplayer, stages, matmat, spriteSyncUtils, errorDialog, settings) {
+	constructor(g, multiplayer, stages, matmat, spriteSyncUtils, errorDialog, settings, uiLoading) {
 		this.g = g;
 		this.multiplayer = multiplayer;
 		this.stages = stages;
 		this.matmat = matmat;
 		this.spriteSyncUtils = spriteSyncUtils;
-		this.uiQuestionInput = new UiQuestionInput(g);
 		this.errorDialog = errorDialog;
 		this.settings = settings;
+		this.uiQuestionInput = new UiQuestionInput();
+		this.uiLoading = uiLoading;
 		
 		this.room = undefined;
 
@@ -328,7 +329,7 @@ export default class StagePlay {
 			this.mpData = this.mpClient.getData();
 			synced();
 			addMe();
-			this.g.stage.visible = true; //loaded
+			this.uiLoading.hide();
 		});
 
 		if(this.source !== 'end') {
@@ -343,7 +344,7 @@ export default class StagePlay {
 			this.mpRoomsData = this.mpRoomsClient.getData();
 		});
 
-		this.g.stage.visible = false; //loading
+		this.uiLoading.show();
 		this.g.state = this.play.bind(this);
 	}
 

@@ -1,9 +1,11 @@
 export default class UiRooms {
 
-	constructor(g) {
+	constructor() {
+		var globalUi = document.querySelector("#ui");
 		
-		this.ui = document.querySelector("#ui");
-		g.scaleToWindow(this.ui);
+		this.ui = document.createElement('div');
+		this.ui.className = 'ui-rooms';
+		globalUi.appendChild(this.ui);
 	}
 
 	show(createRoomCallback) {

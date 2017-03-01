@@ -7,6 +7,7 @@ import StagePlay from './stages/Play';
 import Scoreboard from './stages/Scoreboard';
 import SpriteSyncUtils from './common/SpriteSyncUtils';
 import ErrorDialog from './common/ErrorDialog';
+import UiLoading from './ui/loading/UiLoading';
 
 export default class App {
 
@@ -25,11 +26,14 @@ export default class App {
 
 		this.errorDialog = new ErrorDialog(this.g);
 
-		this.stages.addStage("rooms", new StageRooms(this.g, this.multiplayer, this.stages, this.spriteSyncUtils, this.errorDialog));
-		this.stages.addStage("lobby", new StageLobby(this.g, this.multiplayer, this.stages, this.errorDialog, settings));
-		this.stages.addStage("play", new StagePlay(this.g, this.multiplayer, this.stages, this.matmat, this.spriteSyncUtils, this.errorDialog, settings));
-		this.stages.addStage("scoreboard", new Scoreboard(this.g, this.multiplayer, this.stages, this.spriteSyncUtils, this.errorDialog, settings));
+		this.uiLoading = new UiLoading();
 
+		this.stages.addStage("rooms", new StageRooms(this.g, this.multiplayer, this.stages, this.spriteSyncUtils, this.errorDialog, this.uiLoading));
+		this.stages.addStage("lobby", new StageLobby(this.g, this.multiplayer, this.stages, this.errorDialog, settings, this.uiLoading));
+		this.stages.addStage("play", new StagePlay(this.g, this.multiplayer, this.stages, this.matmat, this.spriteSyncUtils, this.errorDialog, settings, this.uiLoading));
+		this.stages.addStage("scoreboard", new Scoreboard(this.g, this.multiplayer, this.stages, this.spriteSyncUtils, this.errorDialog, settings, this.uiLoading));
+
+		this.g.scaleToWindow(document.querySelector("#ui"));
 	}
 
 	onLoad() {

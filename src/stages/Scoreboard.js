@@ -1,12 +1,13 @@
 export default class StageScoreboard {
 
-	constructor(g, multiplayer, stages, spriteSyncUtils, errorDialog, settings) {
+	constructor(g, multiplayer, stages, spriteSyncUtils, errorDialog, settings, uiLoading) {
 		this.g = g;
 		this.multiplayer = multiplayer;
 		this.stages = stages;
 		this.spriteSyncUtils = spriteSyncUtils;
 		this.errorDialog = errorDialog;
 		this.settings = settings;
+		this.uiLoading = uiLoading;
 
 		this.room = undefined;
 		this.source = "standalone";
@@ -69,7 +70,7 @@ export default class StageScoreboard {
 					pImage.y = this.settings.height - 132;
 					p.addChild(pImage);
 				}
-
+				
 				let pPos = new PIXI.Text((i+1)+".", {font : '16px Helvetica', fill : 0x111111});
 				pPos.anchor.x = 0.5;
 				pPos.x = size / 2 + 8;
@@ -92,7 +93,7 @@ export default class StageScoreboard {
 		this.mpClient.on('connected', () => {
 			this.mpData = this.mpClient.getData();
 			synced();
-			this.g.stage.visible = true; //loaded
+			this.uiLoading.hide();
 		});
 
 		this.mpClient.on('synced', synced); 
@@ -144,7 +145,7 @@ export default class StageScoreboard {
 			guiNewGame.addChild(guiNewGameText);
 		}
 
-		this.g.stage.visible = false; //loading
+		this.uiLoading.show();
 		this.g.state = this.play;
 	}
 

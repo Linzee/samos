@@ -1,11 +1,12 @@
 export default class StageLobby {
 
-	constructor(g, multiplayer, stages, errorDialog, settings) {
+	constructor(g, multiplayer, stages, errorDialog, settings, uiLoading) {
 		this.g = g;
 		this.multiplayer = multiplayer;
 		this.stages = stages;
 		this.errorDialog = errorDialog;
 		this.settings = settings;
+		this.uiLoading = uiLoading;
 		
 		this.room = undefined;
 		this.maxPlayers = settings.app.maxPlayers;
@@ -169,7 +170,7 @@ export default class StageLobby {
 			synced();
 			addMe();
 
-			this.g.stage.visible = true; //loaded
+			this.uiLoading.hide();
 		});
 
 		this.mpClient.on('synced', synced);
@@ -182,7 +183,7 @@ export default class StageLobby {
 			this.mpRoomsData = this.mpRoomsClient.getData();
 		});
 
-		this.g.stage.visible = false; //loading
+		this.uiLoading.show();
 		this.g.state = this.play.bind(this);
 	}
 
