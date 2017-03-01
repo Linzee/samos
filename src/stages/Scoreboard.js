@@ -59,7 +59,7 @@ export default class StageScoreboard {
 				let pBg = this.g.rectangle(size + 16, this.settings.height, this.bgColors[i], "#000000", 0, 0, 0);
 				p.addChild(pBg);
 
-				if(player.image) {
+				if(player.image !== undefined) {
 					let pImage = this.g.sprite(playerTextures[player.image]);
 					pImage.width = size;
 					pImage.height = size;
