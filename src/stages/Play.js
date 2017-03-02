@@ -120,18 +120,23 @@ export default class StagePlay {
 		this.mpRoomsClient = this.multiplayer.initRoomsRoom();
 
 		var initialiseGame = () => {
+			var s = false;
 			if(!this.mpData) {
 				this.mpData = {};
+				s=true;
 			}
 			if(!this.mpData.players) {
 				this.mpData.players = [];
-				this.mpClient.sync();
+				s=true;
 			}
 			if(!this.mpData.coins) {
 				var i = 0;
 				this.mpData.coins = this.world.getObjects("Coin").map((coin) => {
 					return {id: i++, x: coin.x / this.world.tilewidth, y: coin.y / this.world.tileheight}
 				});
+				s=true;
+			}
+			if(s) {
 				this.mpClient.sync();
 			}
 		};

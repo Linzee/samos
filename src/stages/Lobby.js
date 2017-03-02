@@ -91,6 +91,7 @@ export default class StageLobby {
 			}
 			if(!this.mpData.players) {
 				this.mpData.players = [];
+				this.mpData.stage = "lobby";
 				this.mpClient.sync();
 			}
 		};
@@ -101,11 +102,8 @@ export default class StageLobby {
 
 			//players
 			var pimgs = {};
-			var startCountdown = this.mpData.players.length > 0;
 			for(var i = 0; i<this.mpData.players.length; i++) {
-				if(this.mpData.players[i].image === undefined) {
-					startCountdown = false;
-				} else {
+				if(this.mpData.players[i].image !== undefined) {
 					pimgs[this.mpData.players[i].image] = this.mpData.players[i];
 				}
 			}
@@ -129,7 +127,7 @@ export default class StageLobby {
 
 			this.guiCountdown.text = this.mpData.countdown ? "Hra začína o " + this.mpData.countdown : "";
 
-			if(this.mpData.stage == "play") {
+			if(this.mpData.stage === "play") {
 				var playerImage = this.dplayer.image;
 
 				this.stages.getStage("play").room = this.room;

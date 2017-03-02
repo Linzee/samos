@@ -2,27 +2,25 @@ var chalk = require('chalk');
 
 module.exports = function(dsi) {
 
+    // Start of game
     dsi.on('edit', dsi.editFilter(/(.*?)\.players\.(\d*?)\.image/, function(conn, edits) {
         var room = edits.room;
 
         dsi.getData(room, function(data) {
             var ready = data.players.reduce(function(acc, player) {
-                console.log([acc, player]);
                 return acc && player.image !== undefined;
             }, true);
 
             if(ready) {
-                console.log("Starting countdown!");
 
-                var countdown = function(timeLeft) { 
-                    console.log("countdown"+timeLeft);
+                var countdown = function(timeLeft) {
                     if(timeLeft > 0) {
                         dsi.singleActionClient(room, function(data) {
                             if(data.players) {
                                 data.countdown = timeLeft;
                             }
                         });
-                        setTimeout(countdown.bind(this, timeLeft-1), timeLeft * 500);
+                        setTimeout(countdown.bind(this, timeLeft-1), 1000);
                     } else {
                         dsi.singleActionClient(room, function(data) {
                             data.stage = "play";
@@ -33,6 +31,37 @@ module.exports = function(dsi) {
 
                 countdown(5);
             }
+        });
+    }));
+
+    // End of game
+    dsi.on('edit', dsi.editFilter(/(.*?)\.coins\.(\d*?)/, function(conn, edits) {
+        var room = edits.room;
+
+        dsi.getData(room, function(roomData) {
+            if(roomData.coins.length == 0) {
+                dsi.singleActionClient(room, function(data) {
+                    data.stage = "end";
+                    data.endTime = Date.now();
+                });
+            }
+        });
+    }));
+
+    // Room info
+    dsi.on('edit', dsi.editFilter(/(.*?)\.stage/, function(conn, edits) {
+        var room = edits.room;
+
+        dsi.getData(room, function(roomData) {
+            dsi.getData("__rooms__", function(roomsData) {
+                roomsData.forEach(function(droom, index){
+                    if(droom.id == room && droom.stage !== roomData.stage) {
+                        dsi.singleActionClient("__rooms__", function(data) {
+                            data[index].stage = roomData.stage;
+                        });
+                    }
+                });
+            });
         });
     }));
 

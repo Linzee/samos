@@ -28,7 +28,7 @@ export default class UiRooms {
 				var template = document.createElement('template');
 				var temp = require("./templateRow.html");
 				temp = temp.replace("{{name}}", droom.name);
-				temp = temp.replace("{{state}}", droom.state);
+				temp = temp.replace("{{stage}}", droom.stageName);
 				// temp = temp.replace("{{action}}", droom.);
 				template.innerHTML = temp;
 				var row = template.content.firstChild;

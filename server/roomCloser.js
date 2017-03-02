@@ -22,7 +22,11 @@ module.exports = function(dsi) {
 
     var closeRoom = (function(room) {
         dsi.singleActionClient("__rooms__", function(data) {
-            data.splice( data.indexOf(room), 1);
+            data.forEach(function(droom, i){
+                if(droom.id == room) {
+                    data.splice(i, 1);
+                }
+            });
         });
 
         delete this.roomCounters[room];
