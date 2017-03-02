@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-var app = require('./app');
+var expressServer = require('./expressServer');
 var http = require('http');
 
 /**
@@ -12,20 +12,23 @@ var http = require('http');
  */
 
 var port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
+expressServer.set('port', port);
 
 /**
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+var server = http.createServer(expressServer);
 
 
 /**
  * Bind diffsync server
  */
 
-require('./diffsync.js')(server, port);
+var diffsyncIntegration = require('./diffsync.js')(server, port);
+
+require('./roomCloser')(diffsyncIntegration);
+require('./samos')(diffsyncIntegration);
 
 /**
  * Listen on provided port, on all network interfaces.

@@ -13,7 +13,7 @@ var settings = {
 	require("./maps/island_large.json")
 	],
 	app: {
-		mpServer: "ws://al-ienze-me.herokuapp.com",
+		mpServer: "ws://localhost:8123", //"ws://al-ienze-me.herokuapp.com",
 		maxPlayers: 6
 	}
 }

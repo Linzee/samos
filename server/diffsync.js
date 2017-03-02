@@ -1,5 +1,6 @@
 var roomCloser = require('./roomCloser');
 var chalk = require('chalk');
+var diffsyncIntegration = require('./diffsyncIntegration');
 
 module.exports = function (server, port) {
 	var io = require('socket.io')(server);
@@ -18,7 +19,7 @@ module.exports = function (server, port) {
         }
     });
 
-    new roomCloser(diffSyncServer, 'ws://127.0.0.1:'+port, "__rooms__", 2 * 1000);
+    return new diffsyncIntegration(diffSyncServer, 'ws://127.0.0.1:'+port)
     
     // setInterval(function(){
     //     dataAdapter.getData('__rooms__', function(err, data){
