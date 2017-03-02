@@ -12,10 +12,7 @@ var settings = {
 	require("./images/coin.png"),
 	require("./maps/island_large.json")
 	],
-	app: {
-		mpServer: "ws://localhost:8123", //"ws://al-ienze-me.herokuapp.com",
-		maxPlayers: 6
-	}
+	app: require('./config.json')
 }
 
 if(settings.fullpage) {

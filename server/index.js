@@ -25,10 +25,16 @@ var server = http.createServer(expressServer);
  * Bind diffsync server
  */
 
-var diffsyncIntegration = require('./diffsync.js')(server, port);
+var Diffsync = require('./diffsync.js');
+var DiffSyncIntegration = require('./diffsyncIntegration');
+var BotFactory = require('./botFactory');
 
-require('./roomCloser')(diffsyncIntegration);
-require('./samos')(diffsyncIntegration);
+var diffSyncServer = new Diffsync(server, port);
+var diffSyncIntegration = new DiffSyncIntegration(diffSyncServer, 'ws://127.0.0.1:'+port);
+var botFactory = new BotFactory(diffSyncIntegration);
+
+require('./roomCloser')(diffSyncIntegration);
+require('./samos')(diffSyncIntegration, botFactory);
 
 /**
  * Listen on provided port, on all network interfaces.

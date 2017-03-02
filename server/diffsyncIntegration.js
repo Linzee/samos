@@ -25,6 +25,12 @@ var DiffSyncIntegration = function(diffSyncServer, clientAddress) {
         client.initialize();
     }).bind(this);
 
+    this.openClient = (function(room) {
+        var client = new diffSync.Client(this.connection, room);
+        client.initialize();
+        return client;
+    }).bind(this);
+
     diffSyncServer.on("connect", function(conn, room) {
         if(room === "__rooms__") {
             return;
@@ -104,6 +110,8 @@ var DiffSyncIntegration = function(diffSyncServer, clientAddress) {
             callback(data.serverCopy);
         });
     }
+
+    return this;
 }
 
 // inherit from EventEmitter

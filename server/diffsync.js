@@ -1,6 +1,5 @@
 var roomCloser = require('./roomCloser');
 var chalk = require('chalk');
-var diffsyncIntegration = require('./diffsyncIntegration');
 
 module.exports = function (server, port) {
 	var io = require('socket.io')(server);
@@ -19,26 +18,5 @@ module.exports = function (server, port) {
         }
     });
 
-    return new diffsyncIntegration(diffSyncServer, 'ws://127.0.0.1:'+port)
-    
-    // setInterval(function(){
-    //     dataAdapter.getData('__rooms__', function(err, data){
-    //         if(err) {
-    //             console.log(err);
-    //         } else {
-    //             console.log(chalk.cyan("rooms:"));
-    //             for(i in data) {
-    //                 console.log(chalk.cyan(data[i].id+" ("+data[i].name+"):"));
-    //                 dataAdapter.getData(data[i].id, function(err, rdata){
-    //                     if(err) {
-    //                         console.log(err);
-    //                     } else {
-    //                         console.log(chalk.cyan(JSON.stringify(rdata, null, 2)));
-    //                     }
-    //                 });
-    //             }
-    //         }
-    //     });
-    // }, 6000);
-
+    return diffSyncServer;
 };

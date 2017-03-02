@@ -1,6 +1,6 @@
-var chalk = require('chalk');
+var config = require('../src/config.json');
 
-module.exports = function(dsi) {
+module.exports = function(dsi, botFactory) {
 
     // Start of game
     dsi.on('edit', dsi.editFilter(/(.*?)\.players\.(\d*?)\.image/, function(conn, edits) {
@@ -26,6 +26,11 @@ module.exports = function(dsi) {
                             data.stage = "play";
                             data.startTime = Date.now();
                         });
+
+                        var botsCount = config.maxPlayers - data.players.length;
+                        for(var i=0; i<botsCount; i++) {
+                            botFactory.create(room, "bot_"+i);
+                        }
                     }
                 }
 

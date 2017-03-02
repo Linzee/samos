@@ -1,0 +1,4 @@
+{
+	"mpServer": "ws://localhost:8123",
+	"maxPlayers": 6
+}
