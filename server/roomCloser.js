@@ -1,6 +1,8 @@
 var io = require('socket.io-client');
 var diffSync = require('../lib/diffsync');
 
+var CLOSE_DELAY = 3 * 1000;
+
 module.exports = function(dsi) {
 
     this.roomCounters = {};
@@ -19,7 +21,7 @@ module.exports = function(dsi) {
     }.bind(this));
 
     var closeRoom = (function(room) {
-        dsi.singleActionClient(roomsRoomName, function(data) {
+        dsi.singleActionClient("__rooms__", function(data) {
             data.splice( data.indexOf(room), 1);
         });
 
@@ -33,7 +35,7 @@ module.exports = function(dsi) {
             this.roomCounters[room]--;
 
             if(this.roomCounters[room] == 0) {
-                this.roomTimeouts[room] = setTimeout(function() {closeRoom(room)}, closeDelay);
+                this.roomTimeouts[room] = setTimeout(function() {closeRoom(room)}, CLOSE_DELAY);
             }
 
         } else {
