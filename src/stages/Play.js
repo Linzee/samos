@@ -188,22 +188,7 @@ export default class StagePlay {
 				return a === this.player;
 			});
 
-			// I won
-			if(this.mpData.coins.length === 0) {
-
-				var findMpRoomData = (roomId) => {
-					for(var room of this.mpRoomsData) {
-						if(room.id === roomId) {
-							return room;
-						}
-					}
-					throw new Error("Room with id "+roomId+" doesnt exist");
-				};
-				var roomData = findMpRoomData(this.room);
-				roomData.state = 'end';
-				roomData.endTime = Date.now();
-				this.mpRoomsClient.sync();
-
+			if(this.mpData.stage === "end") {
 				this.stages.getStage("scoreboard").room = this.room;
 				this.stages.getStage("scoreboard").source = "end";
 				this.stages.changeStage("scoreboard");

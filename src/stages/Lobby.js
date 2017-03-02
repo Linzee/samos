@@ -20,8 +20,6 @@ export default class StageLobby {
 		this.players = undefined;
 		this.gui = undefined;
 		this.guiCountdown = undefined;
-
-		this.countdown = undefined;
 	}
 
 	load() {
@@ -129,12 +127,15 @@ export default class StageLobby {
 
 			guiPlayers.text = "Hráči: "+this.mpData.players.length+" / "+this.maxPlayers;
 
-			if(startCountdown) {
-				if(!this.countdown) {
-					this.countdown = Date.now() + 5000;
-				}
-			} else {
-				this.countdown = undefined;
+			this.guiCountdown.text = this.mpData.countdown ? "Hra začína o " + this.mpData.countdown : "";
+
+			if(this.mpData.stage == "play") {
+				var playerImage = this.dplayer.image;
+
+				this.stages.getStage("play").room = this.room;
+				this.stages.changeStage("play");
+
+				ga('send', 'event', 'Room', 'play', playerImage);
 			}
 		};
 
@@ -188,30 +189,7 @@ export default class StageLobby {
 	}
 
 	play() {
-		this.guiCountdown.text = this.countdown ? "Hra začína o " + Math.ceil((this.countdown - Date.now()) / 1000) : "";
-
-		if(this.countdown !== undefined) {
-			if(this.countdown <= Date.now()) {
-				var playerImage = this.dplayer.image;
-
-				var findMpRoomData = (roomId) => {
-					for(var room of this.mpRoomsData) {
-						if(room.id === roomId) {
-							return room;
-						}
-					}
-				};
-				var roomData = findMpRoomData(this.room);
-				roomData.state = 'play';
-				roomData.startTime = Date.now();
-				this.mpRoomsClient.sync();
-
-				this.stages.getStage("play").room = this.room;
-				this.stages.changeStage("play");
-
-				ga('send', 'event', 'Room', 'play', playerImage);
-			}
-		}
+		
 	}
 
 	unload() {
