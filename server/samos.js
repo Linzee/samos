@@ -15,14 +15,14 @@ module.exports = function(dsi, botFactory) {
 
                 var countdown = function(timeLeft) {
                     if(timeLeft > 0) {
-                        dsi.singleActionClient(room, function(data) {
+                        dsi.roomAction(room, function(data) {
                             if(data.players) {
                                 data.countdown = timeLeft;
                             }
                         });
                         setTimeout(countdown.bind(this, timeLeft-1), 1000);
                     } else {
-                        dsi.singleActionClient(room, function(data) {
+                        dsi.roomAction(room, function(data) {
                             data.stage = "play";
                             data.startTime = Date.now();
                         });
@@ -45,7 +45,7 @@ module.exports = function(dsi, botFactory) {
 
         dsi.getData(room, function(roomData) {
             if(roomData.coins.length == 0) {
-                dsi.singleActionClient(room, function(data) {
+                dsi.roomAction(room, function(data) {
                     data.stage = "end";
                     data.endTime = Date.now();
                 });
@@ -61,7 +61,7 @@ module.exports = function(dsi, botFactory) {
             dsi.getData("__rooms__", function(roomsData) {
                 roomsData.forEach(function(droom, index){
                     if(droom.id == room && droom.stage !== roomData.stage) {
-                        dsi.singleActionClient("__rooms__", function(data) {
+                        dsi.roomAction("__rooms__", function(data) {
                             data[index].stage = roomData.stage;
                         });
                     }

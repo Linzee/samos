@@ -21,7 +21,7 @@ module.exports = function(dsi) {
     }.bind(this));
 
     var closeRoom = (function(room) {
-        dsi.singleActionClient("__rooms__", function(data) {
+        dsi.roomAction("__rooms__", function(data) {
             data.forEach(function(droom, i){
                 if(droom.id == room) {
                     data.splice(i, 1);
@@ -47,7 +47,7 @@ module.exports = function(dsi) {
         }
 
         //player leave
-        dsi.singleActionClient(room, function(data) {
+        dsi.roomAction(room, function(data) {
             if(data.players) {
                 data.players = data.players.filter((dplayer) => {
                     return dplayer.id !== conn.id;

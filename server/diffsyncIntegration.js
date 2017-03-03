@@ -7,22 +7,54 @@ var DiffSyncIntegration = function(diffSyncServer, clientAddress) {
     EventEmitter.call(this);
 
     this.diffSyncServer = diffSyncServer;
+    this.roomClients = [];
 
     setTimeout((function(){
         this.connection = io(clientAddress);
     }).bind(this));
 
-    this.singleActionClient = (function(room, dataModifyCallback) {
-        var client = new diffSync.Client(this.connection, room);
-        client.on('connected', function() {
-            var data = client.getData();
-            dataModifyCallback(data);
-            client.sync();
-            client.on('synced', function() {
-                client.close();
-            });
-        });
-        client.initialize();
+    this.getRoomClient = (function(room) {
+        if(this.roomClients[room] === undefined) {
+
+            var client = new diffSync.Client(this.connection, room);
+            
+            client.on('connected', function() {
+                this.roomClients[room].data = client.getData();
+
+                if(this.roomClients[room].actions.length) {
+                    this.roomClients[room].actions.forEach(function(action){
+                        action();
+                    });
+                    this.roomClients[room].actions = undefined;
+                }
+            }.bind(this));
+
+            this.roomClients[room] = {
+                client: client,
+                data: undefined,
+                actions: []
+            }
+            client.initialize();
+        }
+        return this.roomClients[room];
+    }).bind(this);
+
+    this.roomAction = (function(room, dataModifyCallback) {
+        var clientInfo = this.getRoomClient(room);
+
+        var action = (function(clientInfo, dataModifyCallback){
+            return function() {
+                dataModifyCallback(clientInfo.data);
+                clientInfo.client.sync();
+            };
+        })(clientInfo, dataModifyCallback);
+
+        if(clientInfo.client.initialized) {
+            action();
+        } else {
+            clientInfo.actions.push(action);
+        }
+
     }).bind(this);
 
     this.openClient = (function(room) {

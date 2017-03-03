@@ -19,13 +19,14 @@
   "author": "Dominik Gmiterko",
   "license": "MIT",
   "dependencies": {
-    "socket.io": "^1.7.2",
     "express": "~4.12.2",
-    "serve-favicon": "~2.2.0",
     "jsondiffpatch": "^0.1.31",
     "lodash.assign": "^3.1.0",
     "lodash.bind": "^3.1.0",
-    "lodash.isempty": "^3.0.2"
+    "lodash.isempty": "^3.0.2",
+    "range": "0.0.3",
+    "serve-favicon": "~2.2.0",
+    "socket.io": "^1.7.2"
   },
   "devDependencies": {
     "autoprefixer": "6.7.2",
