@@ -37,7 +37,7 @@
 /* eslint-disable indent, no-unused-vars, no-multiple-empty-lines, max-nested-callbacks, space-before-function-paren, quotes, comma-spacing */
 'use strict';
 
-var precacheConfig = [["index.html","e1c754b307b3d2edb8df073e673e9a09"],["manifest.json","12f474a5eee832962ae6823c7f7118e3"],["static/js/main.b2bad541.js","fcbf85297d33415df7b91f0db0b8a2b5"],["static/media/island_large.3c9e0d45.json","3c9e0d45870cf15debe362a80312fe4d"],["static/media/ocean.94ad0b6f.png","94ad0b6f87b73ac6147f0cfd3c6d5380"],["static/media/players.7321e297.png","7321e297fd5f0ba229fa1fc1b59f23c4"]];
+var precacheConfig = [["index.html","99d0c35074762851cc83a246af732d6d"],["manifest.json","12f474a5eee832962ae6823c7f7118e3"],["static/js/main.0b5d5a66.js","3fb48461f4de7d1534196bae10817beb"],["static/media/island_large.3c9e0d45.json","3c9e0d45870cf15debe362a80312fe4d"],["static/media/ocean.94ad0b6f.png","94ad0b6f87b73ac6147f0cfd3c6d5380"],["static/media/players.7321e297.png","7321e297fd5f0ba229fa1fc1b59f23c4"]];
 var cacheName = 'sw-precache-v2-sw-precache-' + (self.registration ? self.registration.scope : '');
 
 
