@@ -1,4 +1,4 @@
 {
-	"mpServer": "ws://localhost:8123",
+	"mpServer": "ws://al-ienze-me.herokuapp.com",
 	"maxPlayers": 6
 }
