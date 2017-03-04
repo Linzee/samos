@@ -1089,17 +1089,27 @@
  </layer>
  <objectgroup name="Coins" width="32" height="32">
   <object name="Coin" gid="63" x="192" y="384"/>
-  <object name="Coin" gid="63" x="544" y="288"/>
-  <object name="Coin" gid="63" x="384" y="448"/>
-  <object name="Coin" gid="63" x="768" y="320"/>
+  <object name="Coin" gid="63" x="385" y="427"/>
   <object name="Coin" gid="63" x="320" y="288"/>
-  <object name="Coin" gid="63" x="544" y="416"/>
-  <object name="Coin" gid="63" x="416" y="384"/>
-  <object name="Coin" gid="63" x="640" y="512"/>
-  <object name="Coin" gid="63" x="480" y="480"/>
-  <object name="Coin" gid="63" x="288" y="544"/>
-  <object name="Coin" gid="63" x="224" y="640"/>
+  <object name="Coin" gid="63" x="615" y="424"/>
+  <object name="Coin" gid="63" x="679" y="519"/>
+  <object name="Coin" gid="63" x="485" y="456"/>
+  <object name="Coin" gid="63" x="200" y="617"/>
   <object name="Coin" gid="63" x="768" y="576"/>
   <object name="Coin" gid="63" x="320" y="704"/>
+  <object name="Coin" gid="63" x="224" y="487"/>
+  <object name="Coin" gid="63" x="545" y="361"/>
+  <object name="Coin" gid="63" x="295" y="450"/>
+  <object name="Coin" gid="63" x="399" y="561"/>
+  <object name="Coin" gid="63" x="485" y="615"/>
+  <object name="Coin" gid="63" x="453" y="329"/>
+  <object name="Coin" gid="63" x="777" y="325"/>
+  <object name="Coin" gid="63" x="581" y="265"/>
+  <object name="Coin" gid="63" x="705" y="359"/>
+  <object name="Coin" gid="63" x="579" y="521"/>
+  <object name="Coin" gid="63" x="704" y="615"/>
+  <object name="Coin" gid="63" x="707" y="737"/>
+  <object name="Coin" gid="63" x="300" y="580"/>
+  <object name="Coin" gid="63" x="292" y="356"/>
  </objectgroup>
 </map>

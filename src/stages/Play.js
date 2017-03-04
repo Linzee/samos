@@ -132,7 +132,7 @@ export default class StagePlay {
 			if(!this.mpData.coins) {
 				var i = 0;
 				this.mpData.coins = this.world.getObjects("Coin").map((coin) => {
-					return {id: i++, x: coin.x / this.world.tilewidth, y: coin.y / this.world.tileheight}
+					return {id: i++, x: Math.floor(coin.x / this.world.tilewidth), y: Math.floor(coin.y / this.world.tileheight)}
 				});
 				s=true;
 			}

@@ -40,36 +40,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":544,
-                 "y":288
-                }, 
-                {
-                 "gid":63,
-                 "height":0,
-                 "name":"Coin",
-                 "properties":
-                    {
-
-                    },
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":384,
-                 "y":448
-                }, 
-                {
-                 "gid":63,
-                 "height":0,
-                 "name":"Coin",
-                 "properties":
-                    {
-
-                    },
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":768,
-                 "y":320
+                 "x":385,
+                 "y":427
                 }, 
                 {
                  "gid":63,
@@ -96,8 +68,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":544,
-                 "y":416
+                 "x":615,
+                 "y":424
                 }, 
                 {
                  "gid":63,
@@ -110,8 +82,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":416,
-                 "y":384
+                 "x":679,
+                 "y":519
                 }, 
                 {
                  "gid":63,
@@ -124,8 +96,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":640,
-                 "y":512
+                 "x":485,
+                 "y":456
                 }, 
                 {
                  "gid":63,
@@ -138,36 +110,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":480,
-                 "y":480
-                }, 
-                {
-                 "gid":63,
-                 "height":0,
-                 "name":"Coin",
-                 "properties":
-                    {
-
-                    },
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":288,
-                 "y":544
-                }, 
-                {
-                 "gid":63,
-                 "height":0,
-                 "name":"Coin",
-                 "properties":
-                    {
-
-                    },
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":224,
-                 "y":640
+                 "x":200,
+                 "y":617
                 }, 
                 {
                  "gid":63,
@@ -196,6 +140,202 @@
                  "width":0,
                  "x":320,
                  "y":704
+                }, 
+                {
+                 "gid":63,
+                 "height":0,
+                 "name":"Coin",
+                 "properties":
+                    {
+
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":224,
+                 "y":487
+                }, 
+                {
+                 "gid":63,
+                 "height":0,
+                 "name":"Coin",
+                 "properties":
+                    {
+
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":545,
+                 "y":361
+                }, 
+                {
+                 "gid":63,
+                 "height":0,
+                 "name":"Coin",
+                 "properties":
+                    {
+
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":295,
+                 "y":450
+                }, 
+                {
+                 "gid":63,
+                 "height":0,
+                 "name":"Coin",
+                 "properties":
+                    {
+
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":399,
+                 "y":561
+                }, 
+                {
+                 "gid":63,
+                 "height":0,
+                 "name":"Coin",
+                 "properties":
+                    {
+
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":485,
+                 "y":615
+                }, 
+                {
+                 "gid":63,
+                 "height":0,
+                 "name":"Coin",
+                 "properties":
+                    {
+
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":453,
+                 "y":329
+                }, 
+                {
+                 "gid":63,
+                 "height":0,
+                 "name":"Coin",
+                 "properties":
+                    {
+
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":777,
+                 "y":325
+                }, 
+                {
+                 "gid":63,
+                 "height":0,
+                 "name":"Coin",
+                 "properties":
+                    {
+
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":581,
+                 "y":265
+                }, 
+                {
+                 "gid":63,
+                 "height":0,
+                 "name":"Coin",
+                 "properties":
+                    {
+
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":705,
+                 "y":359
+                }, 
+                {
+                 "gid":63,
+                 "height":0,
+                 "name":"Coin",
+                 "properties":
+                    {
+
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":579,
+                 "y":521
+                }, 
+                {
+                 "gid":63,
+                 "height":0,
+                 "name":"Coin",
+                 "properties":
+                    {
+
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":704,
+                 "y":615
+                }, 
+                {
+                 "gid":63,
+                 "height":0,
+                 "name":"Coin",
+                 "properties":
+                    {
+
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":707,
+                 "y":737
+                }, 
+                {
+                 "gid":63,
+                 "height":0,
+                 "name":"Coin",
+                 "properties":
+                    {
+
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":300,
+                 "y":580
+                }, 
+                {
+                 "gid":63,
+                 "height":0,
+                 "name":"Coin",
+                 "properties":
+                    {
+
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":292,
+                 "y":356
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -213,7 +353,7 @@
  "tilesets":[
         {
          "firstgid":1,
-         "image":"..\/img\/ocean.png",
+         "image":"..\/images\/ocean.png",
          "imageheight":256,
          "imagewidth":256,
          "margin":0,
