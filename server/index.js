@@ -28,10 +28,12 @@ var server = http.createServer(expressServer);
 var Diffsync = require('./diffsync.js');
 var DiffSyncIntegration = require('./diffsyncIntegration');
 var BotFactory = require('./botFactory');
+var Pathfinder = require('./pathfinder');
 
 var diffSyncServer = new Diffsync(server, port);
 var diffSyncIntegration = new DiffSyncIntegration(diffSyncServer, 'ws://127.0.0.1:'+port);
-var botFactory = new BotFactory(diffSyncIntegration);
+var pathfinder = new Pathfinder();
+var botFactory = new BotFactory(diffSyncIntegration, pathfinder);
 
 require('./roomCloser')(diffSyncIntegration);
 require('./samos')(diffSyncIntegration, botFactory);

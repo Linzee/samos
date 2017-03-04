@@ -128,12 +128,20 @@ export default class StageLobby {
 			this.guiCountdown.text = this.mpData.countdown ? "Hra začína o " + this.mpData.countdown : "";
 
 			if(this.mpData.stage === "play") {
-				var playerImage = this.dplayer.image;
+				if(this.dplayer) {
+					ga('send', 'event', 'Room', 'play', this.dplayer.image);
+				}
 
 				this.stages.getStage("play").room = this.room;
 				this.stages.changeStage("play");
 
-				ga('send', 'event', 'Room', 'play', playerImage);
+				return;
+			}
+			if(this.mpData.stage === "end") {
+				this.stages.getStage("scoreboard").room = this.room;
+				this.stages.getStage("scoreboard").source = "end";
+				this.stages.changeStage("scoreboard");
+				return;
 			}
 		};
 

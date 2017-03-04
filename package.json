@@ -19,6 +19,7 @@
   "author": "Dominik Gmiterko",
   "license": "MIT",
   "dependencies": {
+    "a-star": "^0.2.0",
     "express": "~4.12.2",
     "jsondiffpatch": "^0.1.31",
     "lodash.assign": "^3.1.0",

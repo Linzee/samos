@@ -1,10 +1,12 @@
 var range = require('range').range;
 
-module.exports = function(dsi, room, botName) {
+module.exports = function(dsi, room, botName, pathfinder, thinkSpeedRange) {
 
 	console.log("Bot "+botName+" joined "+room);
 
 	this.botName = botName;
+	this.sleep = 0;
+	this.path = undefined;
 
 	//spawn
 	dsi.getData(room, function(data) {
@@ -28,6 +30,12 @@ module.exports = function(dsi, room, botName) {
 	});
 
 	this.move = function() {
+
+		if(this.sleep > Date.now()) {
+			return;
+		}
+		this.sleep = Date.now() + Math.round(thinkSpeedRange.low + Math.random() * (thinkSpeedRange.high - thinkSpeedRange.low));
+
 		dsi.roomAction(room, function(data) {
 
 			if(!data.players || !data.coins) {
@@ -37,19 +45,37 @@ module.exports = function(dsi, room, botName) {
 			data.players.forEach(function(dplayer, i){
 				if(dplayer.id === botName) {
 			
-					var angle = Math.round(Math.random() * 4);
-					dplayer.x += Math.round(Math.cos(Math.PI/2*angle));
-					dplayer.y += Math.round(Math.sin(Math.PI/2*angle));
+					if(this.path == undefined) {
+						this.path = pathfinder.findObject({
+							x: dplayer.x,
+							y: dplayer.y
+						}, function(node) {
+							return data.coins.reduce(function(acc, coin) {
+								return acc || (coin.x === node.x && coin.y === node.y)
+							}, false);
+						});
+					}
 
-					data.coins = data.coins.filter((dcoin) => {
-						if(dplayer.x === dcoin.x && dplayer.y === dcoin.y) {
-							dplayer.score += 1;
-							return false;
+					if(this.path) {
+
+						var node = this.path.shift();
+						dplayer.x = node.x
+						dplayer.y = node.y;
+
+						data.coins = data.coins.filter((dcoin) => {
+							if(dplayer.x === dcoin.x && dplayer.y === dcoin.y) {
+								dplayer.score += 1;
+								return false;
+							}
+							return true;
+						});
+
+						if(this.path.length == 0) {
+							this.path = undefined;
 						}
-						return true;
-					});
+					}
 				}
-			});
-		});
-	}
+			}.bind(this));
+		}.bind(this));
+	}.bind(this);
 };
