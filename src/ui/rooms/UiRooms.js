@@ -35,7 +35,7 @@ export default class UiRooms {
 
 				row.addEventListener("click", droom.action);
 
-				row.querySelector("button").disabled = droom.state !== 'lobby';
+				row.querySelector("button").disabled = droom.stage !== 'lobby';
 
 				rooms.appendChild(row);
 			});

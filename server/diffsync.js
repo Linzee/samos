@@ -12,11 +12,7 @@ module.exports = function (server, port) {
     var diffSyncServer = new diffSync.Server(dataAdapter, io);
 
     //Setup initial structure
-    dataAdapter.storeData("__rooms__", [], function(err){
-        if(err) {
-            console.log(err);
-        }
-    });
+    dataAdapter.storeData("__rooms__", []);
 
     return diffSyncServer;
 };
