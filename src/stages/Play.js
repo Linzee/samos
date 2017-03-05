@@ -119,28 +119,6 @@ export default class StagePlay {
 		this.mpClient = this.multiplayer.initRoom(this.room);
 		this.mpRoomsClient = this.multiplayer.initRoomsRoom();
 
-		var initialiseGame = () => {
-			var s = false;
-			if(!this.mpData) {
-				this.mpData = {};
-				s=true;
-			}
-			if(!this.mpData.players) {
-				this.mpData.players = [];
-				s=true;
-			}
-			if(!this.mpData.coins) {
-				var i = 0;
-				this.mpData.coins = this.world.getObjects("Coin").map((coin) => {
-					return {id: i++, x: Math.floor(coin.x / this.world.tilewidth), y: Math.floor(coin.y / this.world.tileheight)}
-				});
-				s=true;
-			}
-			if(s) {
-				this.mpClient.sync();
-			}
-		};
-
 		var tileproperties = PIXI.loader.resources[require("../maps/island_large.json")].data.tilesets[0].tileproperties;
 
 		var isWorldCollision = (x, y) => {
@@ -150,8 +128,6 @@ export default class StagePlay {
 		}
 
 		var synced = () => {
-
-			initialiseGame();
 
 			//players
 			this.spriteSyncUtils.sync(this.players, this.mpData.players, (dplayer) => {

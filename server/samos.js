@@ -1,6 +1,29 @@
 var config = require('../src/config.json');
 
+var map = require('../src/maps/island_large.json');
+
 module.exports = function(dsi, botFactory) {
+
+    // Initialize game
+    dsi.on("room-create", function(room) {
+        dsi.roomAction(room, function(data) {
+            if(!data) {
+                var coins = map.layers[1].objects.map(function(coin, id){
+                    return {
+                        id: id,
+                        x: Math.floor(coin.x / map.tilewidth),
+                        y: Math.floor(coin.y / map.tileheight)
+                    };
+                });
+
+                data = {
+                    players: [],
+                    coins: coins,
+                    stage: "lobby"
+                };
+            }
+        });
+    });
 
     // Start of game
     dsi.on('edit', dsi.editFilter(/(.*?)\.players\.(\d*?)\.image/, function(conn, edits) {
@@ -37,7 +60,7 @@ module.exports = function(dsi, botFactory) {
                 countdown(5);
             }
         });
-    }));
+}));
 
     // End of game
     dsi.on('edit', dsi.editFilter(/(.*?)\.coins\.(\d*?)/, function(conn, edits) {

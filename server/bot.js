@@ -10,7 +10,7 @@ module.exports = function(dsi, room, botName, pathfinder, thinkSpeedRange) {
 
 	//spawn
 	dsi.getData(room, function(data) {
-		var leftImages = range(20);
+		var leftImages = range(27);
 		
 		data.players.forEach(function(dplayer) {
 			leftImages.splice(leftImages.indexOf(dplayer.image), 1);

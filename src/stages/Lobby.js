@@ -85,20 +85,7 @@ export default class StageLobby {
 
 		this.g.stage.putCenter(this.players);
 
-		var initialiseGame = () => {
-			if(!this.mpData) {
-				this.mpData = {};
-			}
-			if(!this.mpData.players) {
-				this.mpData.players = [];
-				this.mpData.stage = "lobby";
-				this.mpClient.sync();
-			}
-		};
-
 		var synced = () => {
-
-			initialiseGame();
 
 			//players
 			var pimgs = {};
@@ -167,7 +154,6 @@ export default class StageLobby {
 				image: undefined
 			};
 
-			initialiseGame();
 			this.mpData.players.push(this.dplayer);
 			this.mpClient.sync();
 		}

@@ -17,6 +17,8 @@ module.exports = function(dsi) {
             this.roomCounters[room]++;
         } else {
             this.roomCounters[room] = 1;
+
+            dsi.emit("room-create", room);
         }
     }.bind(this));
 
@@ -31,6 +33,8 @@ module.exports = function(dsi) {
 
         delete this.roomCounters[room];
         dsi.diffSyncServer.closeRoom(room);
+
+        dsi.emit("room-close", room);
     }).bind(this);
 
     dsi.on("disconnect", function(conn, room) {
