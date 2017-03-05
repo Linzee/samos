@@ -1,0 +1,23 @@
+diff a/src/stages/Lobby.js b/src/stages/Lobby.js	(rejected hunks)
+@@ -85,21 +85,8 @@
+ 
+ 		this.g.stage.putCenter(this.players);
+ 
+-		var initialiseGame = () => {
+-			if(!this.mpData) {
+-				this.mpData = {};
+-			}
+-			if(!this.mpData.players) {
+-				this.mpData.players = [];
+-				this.mpData.stage = "lobby";
+-				this.mpClient.sync();
+-			}
+-		};
+-
+ 		var synced = () => {
+ 
+-			initialiseGame();
+-
+ 			//players
+ 			var pimgs = {};
+ 			for(var i = 0; i<this.mpData.players.length; i++) {

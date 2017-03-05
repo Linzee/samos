@@ -7,21 +7,17 @@ module.exports = function(dsi, botFactory) {
     // Initialize game
     dsi.on("room-create", function(room) {
         dsi.roomAction(room, function(data) {
-            if(!data) {
-                var coins = map.layers[1].objects.map(function(coin, id){
-                    return {
-                        id: id,
-                        x: Math.floor(coin.x / map.tilewidth),
-                        y: Math.floor(coin.y / map.tileheight)
-                    };
-                });
-
-                data = {
-                    players: [],
-                    coins: coins,
-                    stage: "lobby"
+            var coins = map.layers[1].objects.map(function(coin, id){
+                return {
+                    id: id,
+                    x: Math.floor(coin.x / map.tilewidth),
+                    y: Math.floor(coin.y / map.tileheight)
                 };
-            }
+            });
+
+            data.players = [];
+            data.coins = coins;
+            data.stage = "lobby";
         });
     });
 
@@ -52,7 +48,7 @@ module.exports = function(dsi, botFactory) {
 
                         var botsCount = config.maxPlayers - data.players.length;
                         for(var i=0; i<botsCount; i++) {
-                            botFactory.create(room, "bot_"+i);
+                            botFactory.spawn(room, "bot_"+i);
                         }
                     }
                 }
@@ -60,7 +56,7 @@ module.exports = function(dsi, botFactory) {
                 countdown(5);
             }
         });
-}));
+    }));
 
     // End of game
     dsi.on('edit', dsi.editFilter(/(.*?)\.coins\.(\d*?)/, function(conn, edits) {
@@ -92,5 +88,9 @@ module.exports = function(dsi, botFactory) {
             });
         });
     }));
+
+    dsi.on("room-close", function(room) {
+        botFactory.despawn(room);
+    });
 
 }

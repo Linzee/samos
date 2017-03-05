@@ -31,10 +31,10 @@ module.exports = function(dsi) {
             });
         });
 
+        dsi.emit("room-close", room);
+
         delete this.roomCounters[room];
         dsi.diffSyncServer.closeRoom(room);
-
-        dsi.emit("room-close", room);
     }).bind(this);
 
     dsi.on("disconnect", function(conn, room) {

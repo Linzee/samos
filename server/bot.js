@@ -2,8 +2,6 @@ var range = require('range').range;
 
 module.exports = function(dsi, room, botName, pathfinder, thinkSpeedRange) {
 
-	console.log("Bot "+botName+" joined "+room);
-
 	this.botName = botName;
 	this.sleep = 0;
 	this.path = undefined;
