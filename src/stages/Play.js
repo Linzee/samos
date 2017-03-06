@@ -2,13 +2,12 @@ import UiQuestionInput from '../ui/questionInput/UiQuestionInput';
 
 export default class StagePlay {
 
-	constructor(g, multiplayer, stages, matmat, spriteSyncUtils, errorDialog, settings, uiLoading) {
+	constructor(g, multiplayer, stages, matmat, spriteSyncUtils, settings, uiLoading) {
 		this.g = g;
 		this.multiplayer = multiplayer;
 		this.stages = stages;
 		this.matmat = matmat;
 		this.spriteSyncUtils = spriteSyncUtils;
-		this.errorDialog = errorDialog;
 		this.settings = settings;
 		this.uiQuestionInput = new UiQuestionInput();
 		this.uiLoading = uiLoading;
@@ -301,10 +300,6 @@ export default class StagePlay {
 		if(this.source !== 'end') {
 			this.mpClient.on('synced', synced);
 		}
-
-		this.mpClient.on('error', () => {
-			this.errorDialog.show("Problém s pripojením!");
-		});
 
 		this.mpRoomsClient.on('connected', () => {
 			this.mpRoomsData = this.mpRoomsClient.getData();

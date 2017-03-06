@@ -1,12 +1,12 @@
 export default class StageLobby {
 
-	constructor(g, multiplayer, stages, errorDialog, settings, uiLoading) {
+	constructor(g, multiplayer, stages, settings, uiLoading, uiError) {
 		this.g = g;
 		this.multiplayer = multiplayer;
 		this.stages = stages;
-		this.errorDialog = errorDialog;
 		this.settings = settings;
 		this.uiLoading = uiLoading;
+		this.uiError = uiError;
 		
 		this.room = undefined;
 		this.maxPlayers = settings.app.maxPlayers;
@@ -147,12 +147,6 @@ export default class StageLobby {
 
 		var addMe = () => {
 
-			if(this.mpData.players.length >= this.maxPlayers) {
-				this.stages.changeStage("rooms");
-				this.errorDialog.show("Táto miestnosť je už plná");
-				return;
-			}
-
 			for(var i=0; i<this.mpData.players.length; i++) {
 				if(this.mpData.players[i].id === this.mpClient.socket.id) {
 					//player is already in game
@@ -174,6 +168,13 @@ export default class StageLobby {
 
 		this.mpClient.on('connected', () => {
 			this.mpData = this.mpClient.getData();
+
+			if(this.mpData.players && this.mpData.players.length >= this.maxPlayers) {
+				this.stages.changeStage("rooms");
+				this.uiError.show("Táto miestnosť je už plná");
+				return;
+			}
+
 			synced();
 			addMe();
 
@@ -181,10 +182,6 @@ export default class StageLobby {
 		});
 
 		this.mpClient.on('synced', synced);
-
-		this.mpClient.on('error', () => {
-			this.errorDialog.show("Problém s pripojením!");
-		});
 
 		this.mpRoomsClient.on('connected', () => {
 			this.mpRoomsData = this.mpRoomsClient.getData();

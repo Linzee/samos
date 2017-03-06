@@ -2,12 +2,11 @@ import UiRooms from '../ui/rooms/UiRooms';
 
 export default class StageRooms {
 
-	constructor(g, multiplayer, stages, spriteSyncUtils, errorDialog, uiLoading) {
+	constructor(g, multiplayer, stages, spriteSyncUtils, uiLoading) {
 		this.g = g;
 		this.multiplayer = multiplayer;
 		this.stages = stages;
 		this.spriteSyncUtils = spriteSyncUtils;
-		this.errorDialog = errorDialog;
 		this.uiRooms = new UiRooms();
 		this.uiLoading = uiLoading;
 
@@ -87,10 +86,6 @@ export default class StageRooms {
 		});
 
 		this.mpClient.on('synced', synced);
-
-		this.mpClient.on('error', () => {
-			this.errorDialog.show("Connection problem!");
-		});
 
 		this.uiLoading.show();
 		this.g.state = this.play;

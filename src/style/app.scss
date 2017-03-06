@@ -20,6 +20,7 @@ $foundation-palette: (
 @include foundation-forms;
 @include foundation-button;
 @include foundation-table;
+@include foundation-reveal;
 
 /*
  * Custom styles
@@ -90,6 +91,21 @@ canvas {
 			position: absolute;
 			top: 0; right: 0; bottom: 0; left: 0;
 			background-color: white;
+		}
+	}
+
+	.ui-error {
+		.overlay {
+			position: absolute;
+			top: 0; right: 0; bottom: 0; left: 0;
+			background-color: rgba(0, 0, 0, 0.5);
+
+			.error {
+				max-width: 500px;
+				background: white;
+				border: 1px solid grey;
+				padding: rem-calc(16);
+			}
 		}
 	}
 }

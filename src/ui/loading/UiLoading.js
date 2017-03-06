@@ -1,4 +1,4 @@
-export default class UiRooms {
+export default class UiLoading {
 
 	constructor(g) {
 		var globalUi = document.querySelector("#ui");

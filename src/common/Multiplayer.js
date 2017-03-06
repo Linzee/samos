@@ -3,8 +3,9 @@ import io from 'socket.io-client';
 
 export default class Multiplayer {
 
-	constructor(settings) {
+	constructor(settings, errorCallback) {
 		this.connection = io(settings.app.mpServer);
+		this.errorCallback = errorCallback;
 
 		this.roomsRoomClient = undefined;
 
@@ -21,6 +22,11 @@ export default class Multiplayer {
 			return this.roomsRoomClient;
 		} else {
 			this.roomsRoomClient = new Client(this.connection, "__rooms__");
+
+			if(this.errorCallback) {
+				this.roomsRoomClient.on('error', this.errorCallback);
+			}
+
 			this.roomsRoomClient.initialize();
 			
 			return this.roomsRoomClient;
@@ -40,6 +46,11 @@ export default class Multiplayer {
 			}
 			this.roomId = room;
 			this.roomClient = new Client(this.connection, room);
+
+			if(this.errorCallback) {
+				this.roomsRoomClient.on('error', this.errorCallback);
+			}
+			
 			this.roomClient.initialize();
 
 			return this.roomClient;

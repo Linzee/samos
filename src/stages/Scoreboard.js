@@ -1,11 +1,10 @@
 export default class StageScoreboard {
 
-	constructor(g, multiplayer, stages, spriteSyncUtils, errorDialog, settings, uiLoading) {
+	constructor(g, multiplayer, stages, spriteSyncUtils, settings, uiLoading) {
 		this.g = g;
 		this.multiplayer = multiplayer;
 		this.stages = stages;
 		this.spriteSyncUtils = spriteSyncUtils;
-		this.errorDialog = errorDialog;
 		this.settings = settings;
 		this.uiLoading = uiLoading;
 
@@ -97,10 +96,6 @@ export default class StageScoreboard {
 		});
 
 		this.mpClient.on('synced', synced); 
-
-		this.mpClient.on('error', () => {
-			this.errorDialog.show("Connection problem!");
-		});
 
 		this.roomName = new PIXI.Text("", {font : '12px Helvetica', fill : 0x111111});
 		this.roomName.x = 16;
