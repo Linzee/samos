@@ -37,8 +37,8 @@
 /* eslint-disable indent, no-unused-vars, no-multiple-empty-lines, max-nested-callbacks, space-before-function-paren, quotes, comma-spacing */
 'use strict';
 
-var precacheConfig = [["index.html","c66478f44fe851ec57417b087f56c04e"],["manifest.json","12f474a5eee832962ae6823c7f7118e3"],["static/js/main.2ca9a0ab.js","490e26ffbaadd3d01f5a0834870545dd"],["static/media/island_large.3ac8c58e.json","3ac8c58ead40a9ca9661b199c590d290"],["static/media/ocean.94ad0b6f.png","94ad0b6f87b73ac6147f0cfd3c6d5380"],["static/media/players.7321e297.png","7321e297fd5f0ba229fa1fc1b59f23c4"]];
-var cacheName = 'sw-precache-v2-sw-precache-' + (self.registration ? self.registration.scope : '');
+var precacheConfig = [["index.html","0d721cee0462986fe965a7d63aea6004"],["manifest.json","0ee685b055c4a5e8203c59770c5d4648"],["static/js/main.285b4e0d.js","2118973952b1a8767301a37db38ecfc6"],["static/media/island_large.a91ea002.json","a91ea00264a93f794863fb0349fcc32e"],["static/media/ocean.94ad0b6f.png","94ad0b6f87b73ac6147f0cfd3c6d5380"],["static/media/players.7321e297.png","7321e297fd5f0ba229fa1fc1b59f23c4"]];
+var cacheName = 'sw-precache-v3-sw-precache-' + (self.registration ? self.registration.scope : '');
 
 
 var ignoreUrlParametersMatching = [/^utm_/];
@@ -53,6 +53,28 @@ var addDirectoryIndex = function (originalUrl, index) {
     return url.toString();
   };
 
+var cleanResponse = function (originalResponse) {
+    // If this is not a redirected response, then we don't have to do anything.
+    if (!originalResponse.redirected) {
+      return Promise.resolve(originalResponse);
+    }
+
+    // Firefox 50 and below doesn't support the Response.body stream, so we may
+    // need to read the entire body to memory as a Blob.
+    var bodyPromise = 'body' in originalResponse ?
+      Promise.resolve(originalResponse.body) :
+      originalResponse.blob();
+
+    return bodyPromise.then(function(body) {
+      // new Response() is happy when passed either a stream or a Blob.
+      return new Response(body, {
+        headers: originalResponse.headers,
+        status: originalResponse.status,
+        statusText: originalResponse.statusText
+      });
+    });
+  };
+
 var createCacheKey = function (originalUrl, paramName, paramValue,
                            dontCacheBustUrlsMatching) {
     // Create a new URL object to avoid modifying originalUrl.
@@ -61,7 +83,7 @@ var createCacheKey = function (originalUrl, paramName, paramValue,
     // If dontCacheBustUrlsMatching is not set, or if we don't have a match,
     // then add in the extra cache-busting URL parameter.
     if (!dontCacheBustUrlsMatching ||
-        !(url.toString().match(dontCacheBustUrlsMatching))) {
+        !(url.pathname.match(dontCacheBustUrlsMatching))) {
       url.search += (url.search ? '&' : '') +
         encodeURIComponent(paramName) + '=' + encodeURIComponent(paramValue);
     }
@@ -134,10 +156,19 @@ self.addEventListener('install', function(event) {
           Array.from(urlsToCacheKeys.values()).map(function(cacheKey) {
             // If we don't have a key matching url in the cache already, add it.
             if (!cachedUrls.has(cacheKey)) {
-              return cache.add(new Request(cacheKey, {
-                credentials: 'same-origin',
-                redirect: 'follow'
-              }));
+              var request = new Request(cacheKey, {credentials: 'same-origin'});
+              return fetch(request).then(function(response) {
+                // Bail out of installation unless we get back a 200 OK for
+                // every request.
+                if (!response.ok) {
+                  throw new Error('Request for ' + cacheKey + ' returned a ' +
+                    'response with status ' + response.status);
+                }
+
+                return cleanResponse(response).then(function(responseToCache) {
+                  return cache.put(cacheKey, responseToCache);
+                });
+              });
             }
           })
         );
