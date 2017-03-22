@@ -27,14 +27,14 @@ export default class App {
 		this.spriteSyncUtils = new SpriteSyncUtils();
 
 		this.g = hexi(settings.width, settings.height, this.onLoad.bind(this), settings.toLoad);
-
+		document.getElementById("game-canvas").appendChild(this.g.canvas);
 
 		this.stages.addStage("rooms", new StageRooms(this.g, this.multiplayer, this.stages, this.spriteSyncUtils, this.uiLoading));
 		this.stages.addStage("lobby", new StageLobby(this.g, this.multiplayer, this.stages, settings, this.uiLoading, this.uiError));
 		this.stages.addStage("play", new StagePlay(this.g, this.multiplayer, this.stages, this.matmat, this.spriteSyncUtils, settings, this.uiLoading));
 		this.stages.addStage("scoreboard", new Scoreboard(this.g, this.multiplayer, this.stages, this.spriteSyncUtils, settings, this.uiLoading));
 
-		this.g.scaleToWindow(document.querySelector("#ui"));
+		this.g.scaleToWindow(document.querySelector("#game-ui"));
 	}
 
 	onLoad() {

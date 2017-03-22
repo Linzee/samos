@@ -1,8 +1,8 @@
 export default class UiRooms {
 
 	constructor(g) {
-		var globalUi = document.querySelector("#ui");
-		
+		var globalUi = document.querySelector("#game-ui");
+
 		this.ui = document.createElement('div');
 		this.ui.className = 'ui-error';
 		globalUi.appendChild(this.ui);

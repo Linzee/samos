@@ -1,6 +1,7 @@
 /*
  * Settings
  */
+ /*
 $foundation-palette: (
   primary: #7444af,
   secondary: #767676,
@@ -8,10 +9,12 @@ $foundation-palette: (
   warning: #ffae00,
   alert: #cc4b37,
 );
+*/
 
 /*
  * Include foundation
  */
+ /*
 @import "~foundation-sites/scss/foundation";
 @include foundation-global-styles;
 @include foundation-flex-classes;
@@ -21,6 +24,7 @@ $foundation-palette: (
 @include foundation-button;
 @include foundation-table;
 @include foundation-reveal;
+*/
 
 /*
  * Custom styles
@@ -28,7 +32,7 @@ $foundation-palette: (
 canvas {
 	display: block;
 }
-#ui { 
+#game-ui {
 	position : absolute;
 	left : 0;
 	top : 0;
@@ -46,9 +50,9 @@ canvas {
 			tr:not(.noRooms) {
 				cursor: pointer;
 			}
-			
+
 			tr.noRooms {
-				color: $secondary-color;
+				color: #767676;
 			}
 
 			.button {

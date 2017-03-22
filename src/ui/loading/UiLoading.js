@@ -1,8 +1,8 @@
 export default class UiLoading {
 
 	constructor(g) {
-		var globalUi = document.querySelector("#ui");
-		
+		var globalUi = document.querySelector("#game-ui");
+
 		this.ui = document.createElement('div');
 		this.ui.className = 'ui-loading';
 		globalUi.appendChild(this.ui);
