@@ -7,7 +7,7 @@ export default class StageLobby {
 		this.settings = settings;
 		this.uiLoading = uiLoading;
 		this.uiError = uiError;
-		
+
 		this.room = undefined;
 		this.maxPlayers = settings.app.maxPlayers;
 
@@ -49,7 +49,7 @@ export default class StageLobby {
 		this.gui.addChild(this.guiCountdown);
 
 		//
-		// Players 
+		// Players
 		//
 		this.mpClient = this.multiplayer.initRoom(this.room);
 		this.mpRoomsClient = this.multiplayer.initRoomsRoom();
@@ -128,9 +128,9 @@ export default class StageLobby {
 			this.guiCountdown.text = this.mpData.countdown ? "Hra začína o " + this.mpData.countdown : "";
 
 			if(this.mpData.stage === "play") {
-				if(this.dplayer) {
-					ga('send', 'event', 'Room', 'play', this.dplayer.image);
-				}
+				// if(this.dplayer) {
+					// ga('send', 'event', 'Room', 'play', this.dplayer.image);
+				// }
 
 				this.stages.getStage("play").room = this.room;
 				this.stages.changeStage("play");
@@ -192,7 +192,7 @@ export default class StageLobby {
 	}
 
 	play() {
-		
+
 	}
 
 	unload() {

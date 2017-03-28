@@ -33,8 +33,6 @@ export default class App {
 		this.stages.addStage("lobby", new StageLobby(this.g, this.multiplayer, this.stages, settings, this.uiLoading, this.uiError));
 		this.stages.addStage("play", new StagePlay(this.g, this.multiplayer, this.stages, this.matmat, this.spriteSyncUtils, settings, this.uiLoading));
 		this.stages.addStage("scoreboard", new Scoreboard(this.g, this.multiplayer, this.stages, this.spriteSyncUtils, settings, this.uiLoading));
-
-		this.g.scaleToWindow(document.querySelector("#game-ui"));
 	}
 
 	onLoad() {
@@ -50,8 +48,9 @@ export default class App {
 	}
 
 	start() {
-		if(!this.settings.fullpage) {
+		if(this.settings.fullpage) {
 			this.g.scaleToWindow("black");
+			this.g.scaleToWindow(document.querySelector("#game-ui"));
 		}
 		this.g.start();
 	}

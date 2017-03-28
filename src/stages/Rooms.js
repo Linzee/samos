@@ -39,14 +39,14 @@ export default class StageRooms {
 			}
 
 			let randomId = (Math.random().toString(36)+'00000000000000000').slice(2, 8);
-			
+
 			this.mpData.push({'id': randomId, 'name': createName, 'stage': 'lobby'});
 			this.mpClient.sync();
 
 			this.stages.getStage("lobby").room = randomId;
 			this.stages.changeStage("lobby");
 
-			ga('send', 'event', 'Room', 'create');
+			// ga('send', 'event', 'Room', 'create');
 		};
 
 		this.uiRooms.show(crateRoom);
@@ -61,7 +61,7 @@ export default class StageRooms {
 						this.stages.getStage("lobby").room = droom.id;
 						this.stages.changeStage("lobby");
 
-						ga('send', 'event', 'Room', 'join');
+						// ga('send', 'event', 'Room', 'join');
 					},
 					stage: droom.stage,
 					stageName: this.roomStages[droom.stage].name
@@ -75,7 +75,7 @@ export default class StageRooms {
 				}
 				return a.name.localeCompare(b.name);
 			});
-			
+
 			this.uiRooms.updateRooms(rooms);
 		}
 

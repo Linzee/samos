@@ -11,7 +11,7 @@ export default class StagePlay {
 		this.settings = settings;
 		this.uiQuestionInput = new UiQuestionInput();
 		this.uiLoading = uiLoading;
-		
+
 		this.room = undefined;
 
 		this.mpClient = undefined;
@@ -39,13 +39,13 @@ export default class StagePlay {
 		this.background.width = this.settings.width;
 		this.background.height = this.settings.height;
 		this.g.stage.addChild(this.background);
-		
+
 		this.world = this.g.makeTiledWorld(require("../maps/island_large.json"), require("../images/ocean.png"));
 		this.coins = this.g.group();
 		this.world.addChild(this.coins);
 		this.players = this.g.group();
 		this.world.addChild(this.players);
-		
+
 		var playerTextures = this.g.filmstrip(require("../images/players.png"), 32, 32);
 		var coinTextures = this.g.filmstrip(require("../images/coin.png"), 32, 32);
 
@@ -151,7 +151,7 @@ export default class StagePlay {
 			this.spriteSyncUtils.recreate(this.coins, this.mpData.coins, (dcoin) => {
 				let c = this.g.sprite(coinTextures);
 				c.playAnimation();
-				
+
 				c.x = this.world.tilewidth * dcoin.x;
 				c.y = this.world.tileheight * dcoin.y;
 
@@ -194,10 +194,10 @@ export default class StagePlay {
 			this.players.addChild(p);
 
 			this.mpClient.sync();
-			
+
 			p.x = this.world.tilewidth * p.dplayer.x;
 			p.y = this.world.tileheight * p.dplayer.y;
-			
+
 			this.player = p;
 
 			p.questions = [];
@@ -237,7 +237,7 @@ export default class StagePlay {
 			}
 
 			p.move = (side) => {
-				
+
 				var tx = Math.round((p.x / this.world.tilewidth) + Math.cos(Math.PI / 2 * side ));
 				var ty = Math.round((p.y / this.world.tileheight) + Math.sin(Math.PI / 2 * side ));
 
@@ -252,7 +252,7 @@ export default class StagePlay {
 					if(tx === dcoin.x && ty === dcoin.y) {
 						p.dplayer.score += 1;
 
-						ga('send', 'event', 'Room', 'collect-coin');
+						// ga('send', 'event', 'Room', 'collect-coin');
 
 						return false;
 					}
