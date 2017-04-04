@@ -1,13 +1,11 @@
-import UiRooms from '../ui/rooms/UiRooms';
-
 export default class StageRooms {
 
-	constructor(g, multiplayer, stages, spriteSyncUtils, uiLoading) {
+	constructor(g, multiplayer, stages, spriteSyncUtils, uiLoading, uiRooms) {
 		this.g = g;
 		this.multiplayer = multiplayer;
 		this.stages = stages;
 		this.spriteSyncUtils = spriteSyncUtils;
-		this.uiRooms = new UiRooms();
+		this.uiRooms = uiRooms;
 		this.uiLoading = uiLoading;
 
 		this.mpClient = undefined;

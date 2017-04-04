@@ -8,6 +8,8 @@ import Scoreboard from './stages/Scoreboard';
 import SpriteSyncUtils from './common/SpriteSyncUtils';
 import UiError from './ui/error/UiError';
 import UiLoading from './ui/loading/UiLoading';
+import UiRooms from './ui/rooms/UiRooms';
+import UiQuestionInput from './ui/questionInput/UiQuestionInput';
 
 export default class App {
 
@@ -18,8 +20,12 @@ export default class App {
 
 		this.settings = settings;
 		this.stages = new Stages();
+
+		this.uiRooms = new UiRooms();
+		this.uiQuestionInput = new UiQuestionInput();
 		this.uiLoading = new UiLoading();
 		this.uiError = new UiError();
+
 		this.multiplayer = new Multiplayer(this.settings, () => {
 			this.uiError.show("Probém s pripojením!");
 		});
@@ -29,9 +35,9 @@ export default class App {
 		this.g = hexi(settings.width, settings.height, this.onLoad.bind(this), settings.toLoad);
 		document.getElementById("game-canvas").appendChild(this.g.canvas);
 
-		this.stages.addStage("rooms", new StageRooms(this.g, this.multiplayer, this.stages, this.spriteSyncUtils, this.uiLoading));
+		this.stages.addStage("rooms", new StageRooms(this.g, this.multiplayer, this.stages, this.spriteSyncUtils, this.uiLoading, this.uiRooms));
 		this.stages.addStage("lobby", new StageLobby(this.g, this.multiplayer, this.stages, settings, this.uiLoading, this.uiError));
-		this.stages.addStage("play", new StagePlay(this.g, this.multiplayer, this.stages, this.matmat, this.spriteSyncUtils, settings, this.uiLoading));
+		this.stages.addStage("play", new StagePlay(this.g, this.multiplayer, this.stages, this.matmat, this.spriteSyncUtils, settings, this.uiLoading, this.uiQuestionInput));
 		this.stages.addStage("scoreboard", new Scoreboard(this.g, this.multiplayer, this.stages, this.spriteSyncUtils, settings, this.uiLoading));
 	}
 

@@ -1,15 +1,13 @@
-import UiQuestionInput from '../ui/questionInput/UiQuestionInput';
-
 export default class StagePlay {
 
-	constructor(g, multiplayer, stages, matmat, spriteSyncUtils, settings, uiLoading) {
+	constructor(g, multiplayer, stages, matmat, spriteSyncUtils, settings, uiLoading, uiQuestionInput) {
 		this.g = g;
 		this.multiplayer = multiplayer;
 		this.stages = stages;
 		this.matmat = matmat;
 		this.spriteSyncUtils = spriteSyncUtils;
 		this.settings = settings;
-		this.uiQuestionInput = new UiQuestionInput();
+		this.uiQuestionInput = uiQuestionInput;
 		this.uiLoading = uiLoading;
 
 		this.room = undefined;
@@ -70,7 +68,8 @@ export default class StagePlay {
 		this.gui.addChild(guiAllCoins);
 
 		let guiCoin = this.g.sprite(coinTextures);
-		guiCoin.playAnimation();
+		guiCoin.animationSpeed = 0.5;
+		guiCoin.play();
 		guiCoin.x = this.settings.width / 2 - 16;
 		guiCoin.y = 4;
 		this.gui.addChild(guiCoin);
@@ -150,7 +149,8 @@ export default class StagePlay {
 
 			this.spriteSyncUtils.recreate(this.coins, this.mpData.coins, (dcoin) => {
 				let c = this.g.sprite(coinTextures);
-				c.playAnimation();
+				c.animationSpeed = 0.5;
+				c.play();
 
 				c.x = this.world.tilewidth * dcoin.x;
 				c.y = this.world.tileheight * dcoin.y;
