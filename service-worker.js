@@ -37,7 +37,7 @@
 /* eslint-disable indent, no-unused-vars, no-multiple-empty-lines, max-nested-callbacks, space-before-function-paren, quotes, comma-spacing */
 'use strict';
 
-var precacheConfig = [["index.html","c66478f44fe851ec57417b087f56c04e"],["manifest.json","12f474a5eee832962ae6823c7f7118e3"],["static/js/main.2ca9a0ab.js","490e26ffbaadd3d01f5a0834870545dd"],["static/media/island_large.3ac8c58e.json","3ac8c58ead40a9ca9661b199c590d290"],["static/media/ocean.94ad0b6f.png","94ad0b6f87b73ac6147f0cfd3c6d5380"],["static/media/players.7321e297.png","7321e297fd5f0ba229fa1fc1b59f23c4"]];
+var precacheConfig = [["index.html","c9ac400aad1503cab00575232bdc2272"],["manifest.json","12f474a5eee832962ae6823c7f7118e3"],["static/js/main.2ca9a0ab.js","490e26ffbaadd3d01f5a0834870545dd"],["static/media/island_large.3ac8c58e.json","3ac8c58ead40a9ca9661b199c590d290"],["static/media/ocean.94ad0b6f.png","94ad0b6f87b73ac6147f0cfd3c6d5380"],["static/media/players.7321e297.png","7321e297fd5f0ba229fa1fc1b59f23c4"]];
 var cacheName = 'sw-precache-v2-sw-precache-' + (self.registration ? self.registration.scope : '');
 
 
